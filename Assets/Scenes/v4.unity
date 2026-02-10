@@ -1216,6 +1216,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2483305963368815052, guid: 4685b556b2b6e4c7a89c9855d54ca2c3, type: 3}
   m_PrefabInstance: {fileID: 120976223}
   m_PrefabAsset: {fileID: 0}
+--- !u!134 &144440687
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ' (Instance)'
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!4 &166720546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -2189,6 +2202,124 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2483305963368815052, guid: 4685b556b2b6e4c7a89c9855d54ca2c3, type: 3}
   m_PrefabInstance: {fileID: 327758357}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &344301010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 728335484434854665, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+  m_PrefabInstance: {fileID: 1794319109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &344301014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344301010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4f51a3a04cc4023972d346b7f54e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorHandleInteractable
+  hoverDuration: 2
+  armedColor: {r: 0.2, g: 0.85, b: 1, a: 1}
+  activatingColor: {r: 0.6, g: 1, b: 0.6, a: 1}
+  pulseSpeed: 2
+  handleRenderer: {fileID: 0}
+  onHandleActivated:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &344301015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344301010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!65 &344301016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344301010}
+  m_Material: {fileID: 1277950215}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15, y: 0.15, z: 0.15}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &363495175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4920,7 +5051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &667616643
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5516,6 +5647,19 @@ Transform:
   - {fileID: 1965988663}
   m_Father: {fileID: 184777780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!134 &807241779
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ' (Instance)'
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!1001 &821964547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5662,7 +5806,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835609578}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 807241779}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -5704,6 +5848,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RevealManager
   revealDoor: {fileID: 1794319111}
+  doorHandleInteractables:
+  - {fileID: 2001167824}
+  - {fileID: 344301014}
   xrOrigin: {fileID: 166720546}
   stateManager: {fileID: 1153987637}
   failUI: {fileID: 1881000087}
@@ -8038,6 +8185,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235218150}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!134 &1277950215
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!1 &1298873974
 GameObject:
   m_ObjectHideFlags: 0
@@ -12203,7 +12363,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6591060093193532533, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2001167826}
+    - targetCorrespondingSourceObject: {fileID: 6591060093193532533, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2001167825}
+    - targetCorrespondingSourceObject: {fileID: 6591060093193532533, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2001167824}
+    - targetCorrespondingSourceObject: {fileID: 728335484434854665, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 344301016}
+    - targetCorrespondingSourceObject: {fileID: 728335484434854665, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 344301015}
+    - targetCorrespondingSourceObject: {fileID: 728335484434854665, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 344301014}
   m_SourcePrefab: {fileID: 100100000, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
 --- !u!4 &1794319110 stripped
 Transform:
@@ -14035,6 +14213,124 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998520280}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2001167820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6591060093193532533, guid: cf065fd461adb42a4be3f8400c3d8fe6, type: 3}
+  m_PrefabInstance: {fileID: 1794319109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2001167824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001167820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4f51a3a04cc4023972d346b7f54e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorHandleInteractable
+  hoverDuration: 2
+  armedColor: {r: 0.2, g: 0.85, b: 1, a: 1}
+  activatingColor: {r: 0.6, g: 1, b: 0.6, a: 1}
+  pulseSpeed: 2
+  handleRenderer: {fileID: 0}
+  onHandleActivated:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2001167825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001167820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!65 &2001167826
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001167820}
+  m_Material: {fileID: 144440687}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15, y: 0.15, z: 0.15}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2015035675
 PrefabInstance:
   m_ObjectHideFlags: 0
