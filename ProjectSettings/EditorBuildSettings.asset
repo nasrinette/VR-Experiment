@@ -17,9 +17,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/v4 draft.unity
     guid: 656278fb810534219b459657cde49a49
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/v4.unity
     guid: 1f17c8e963b064b369c3f209828295ed
+  - enabled: 1
+    path: Assets/Scenes/MCPScene.unity
+    guid: 18a9e1f9756f643c2a809f1c246b89ae
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

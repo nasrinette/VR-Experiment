@@ -6,6 +6,10 @@ public class RevealManager : MonoBehaviour
     [Header("Door before reveal room (optional)")]
     public DoorManager revealDoor;
 
+    [Header("Door Handle Interaction (optional)")]
+    [Tooltip("If assigned, the door opens via handle click instead of proximity. Supports both sides of the door.")]
+    public DoorHandleInteractable[] doorHandleInteractables;
+
     [Header("XR Rig / XR Origin")]
     public Transform xrOrigin;
 
@@ -23,6 +27,17 @@ public class RevealManager : MonoBehaviour
     private bool _showSuccessThisCondition = false;
     private bool _triggeredThisCondition = false;
 
+    private bool HasHandles => doorHandleInteractables != null && doorHandleInteractables.Length > 0;
+
+    private void Start()
+    {
+        // Wire up handle callbacks
+        if (HasHandles)
+            foreach (var handle in doorHandleInteractables)
+                if (handle != null)
+                    handle.onHandleActivated.AddListener(OnDoorHandleActivated);
+    }
+
     private void OnTriggerEnter(Collider other) => TryTrigger(other);
     private void OnTriggerStay(Collider other)  => TryTrigger(other);
 
@@ -35,11 +50,39 @@ public class RevealManager : MonoBehaviour
         if (other.transform != xrOrigin && !other.transform.IsChildOf(xrOrigin))
             return;
 
+        // If door handles are assigned, don't auto-open the door on proximity.
+        // The player must click the handle instead.
+        if (HasHandles)
+            return;
+
+        PerformReveal();
+    }
+
+    /// <summary>
+    /// Called by DoorHandleInteractable when the player clicks the handle.
+    /// </summary>
+    private void OnDoorHandleActivated()
+    {
+        if (!_isActiveRevealTrigger) return;
+        if (triggerOncePerCondition && _triggeredThisCondition) return;
+        if (!stateManager) return;
+
+        PerformReveal();
+    }
+
+    private void PerformReveal()
+    {
         _triggeredThisCondition = true;
 
         // Open reveal door
         if (revealDoor != null)
             revealDoor.Open();
+
+        // Disarm all handles after use
+        if (HasHandles)
+            foreach (var handle in doorHandleInteractables)
+                if (handle != null)
+                    handle.SetArmed(false);
 
         // Show fail/success UI
         if (failUI) failUI.SetActive(!_showSuccessThisCondition);
@@ -67,11 +110,12 @@ public class RevealManager : MonoBehaviour
         {
             ResetRevealRoom(closeDoor: false);
         }
-        else
-        {
-            // Still ensure we won't retrigger within the same phase unless you want that.
-            // Do NOT change UI visibility.
-        }
+
+        // Arm/disarm handles AFTER reset so reset doesn't undo arming
+        if (HasHandles)
+            foreach (var handle in doorHandleInteractables)
+                if (handle != null)
+                    handle.SetArmed(activeRevealTrigger);
     }
 
     public void ResetRevealRoom(bool closeDoor)
@@ -83,6 +127,12 @@ public class RevealManager : MonoBehaviour
 
         if (closeDoor && revealDoor != null)
             revealDoor.SetOpenImmediate(false);
+
+        // Disarm all handles when resetting
+        if (HasHandles)
+            foreach (var handle in doorHandleInteractables)
+                if (handle != null)
+                    handle.SetArmed(false);
     }
 
     private static void ForceEnableVisuals(GameObject root)
