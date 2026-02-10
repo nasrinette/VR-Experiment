@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.coplaydev.unity-mcp": {
+      "version": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "hash": "286d0c6df1b8987820e2bce7c9281957c6c9e35f"
+    },
     "com.labstreaminglayer.lsl4unity": {
       "version": "file:com.labstreaminglayer.lsl4unity",
       "depth": 0,
