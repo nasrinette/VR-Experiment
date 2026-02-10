@@ -38,8 +38,8 @@ public class BoxChoiceManager : MonoBehaviour
         if (nextPanel) nextPanel.SetActive(false);
     }
 
-    public void ChooseBlack() => Choose();
-    public void ChooseWhite() => Choose();
+    public void ChooseBlack() { QuestEventOutlet.Send("box_choose_black"); Choose(); }
+    public void ChooseWhite() { QuestEventOutlet.Send("box_choose_white"); Choose(); }
 
     private void Choose()
     {

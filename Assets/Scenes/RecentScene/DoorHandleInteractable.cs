@@ -72,6 +72,7 @@ public class DoorHandleInteractable : MonoBehaviour
             if (progress >= 1f)
             {
                 _activated = true;
+                QuestEventOutlet.Send($"door_handle_activated:{name}");
                 Debug.Log($"[DoorHandle] Activated by hover: {name}");
                 onHandleActivated?.Invoke();
             }

@@ -106,6 +106,8 @@ public class RoomManager : MonoBehaviour
     {
         _running = true;
 
+        QuestEventOutlet.Send($"room_enter:{name}");
+
         // Prevent re-trigger while the player is still overlapping the slab
         if (_triggerCollider != null)
             _triggerCollider.enabled = false;
@@ -114,9 +116,12 @@ public class RoomManager : MonoBehaviour
         float remaining = lockSeconds;
         SetTimerText(remaining);
 
+        QuestEventOutlet.Send($"timer_start:{name}:{lockSeconds}s");
+
         // GLASS ROOM: enable glass + hide everything else visually + set skybox
         if (isGlassRoom)
         {
+            QuestEventOutlet.Send($"glass_room_on:{name}");
             if (glassRoomObject != null)
                 glassRoomObject.SetActive(true);
 
@@ -141,10 +146,12 @@ public class RoomManager : MonoBehaviour
 
         // Freeze at 00:00
         SetTimerText(0f);
+        QuestEventOutlet.Send($"timer_end:{name}");
 
         // GLASS ROOM: restore everything + disable glass room again + restore skybox
         if (isGlassRoom)
         {
+            QuestEventOutlet.Send($"glass_room_off:{name}");
             RestoreSceneVisuals();
             RestoreDefaultSkybox();
 

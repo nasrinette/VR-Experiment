@@ -121,6 +121,7 @@ public class ExperimentStateManager : MonoBehaviour
             revealTrigger.ConfigureForCondition(activeRevealTrigger: true, showSuccess: false, resetAndHideUI: true);
         }
 
+        QuestEventOutlet.Send("condition1_start");
         Debug.Log("[ExperimentStateManager] Condition 1 active.");
     }
 
@@ -137,6 +138,7 @@ public class ExperimentStateManager : MonoBehaviour
         SetReturnPlaneActive(true);
         EnterMiddleMode();
 
+        QuestEventOutlet.Send("middle_start");
         Debug.Log("[ExperimentStateManager] Middle active.");
     }
 
@@ -161,6 +163,7 @@ public class ExperimentStateManager : MonoBehaviour
             revealTrigger.ConfigureForCondition(activeRevealTrigger: true, showSuccess: true, resetAndHideUI: true);
         }
 
+        QuestEventOutlet.Send("condition2_start");
         Debug.Log("[ExperimentStateManager] Condition 2 active.");
     }
 
@@ -178,6 +181,7 @@ public class ExperimentStateManager : MonoBehaviour
         ExitMiddleMode();
         SetReturnPlaneActive(false);
 
+        QuestEventOutlet.Send("experiment_end");
         Debug.Log("[ExperimentStateManager] Condition 2 complete. Experiment ends here (success UI remains).");
     }
 

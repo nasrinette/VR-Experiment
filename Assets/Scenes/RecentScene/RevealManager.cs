@@ -94,6 +94,7 @@ public class RevealManager : MonoBehaviour
         // Notify state machine
         stateManager.OnRevealReached();
 
+        QuestEventOutlet.Send(_showSuccessThisCondition ? "reveal_success" : "reveal_fail");
         Debug.Log($"[RevealManager] Triggered at {name}. Success={_showSuccessThisCondition}");
     }
 

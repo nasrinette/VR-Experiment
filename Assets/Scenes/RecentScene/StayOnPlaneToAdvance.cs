@@ -62,6 +62,7 @@ public class StayOnPlaneToAdvance : MonoBehaviour
 
         _routine = null;
 
+        QuestEventOutlet.Send("return_plane_held");
         if (stateManager != null)
             stateManager.OnReturnPlaneHeld();
     }

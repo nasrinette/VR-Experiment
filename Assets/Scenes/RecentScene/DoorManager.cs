@@ -55,8 +55,8 @@ public class DoorManager : MonoBehaviour
         door.rotation = Quaternion.Slerp(door.rotation, target, Time.deltaTime * speed);
     }
 
-    public void Open()  => _isOpen = true;
-    public void Close() => _isOpen = false;
+    public void Open()  { _isOpen = true;  QuestEventOutlet.Send($"door_open:{name}"); }
+    public void Close() { _isOpen = false; QuestEventOutlet.Send($"door_close:{name}"); }
 
     public void SetOpenImmediate(bool open)
     {
