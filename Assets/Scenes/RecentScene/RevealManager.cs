@@ -16,6 +16,9 @@ public class RevealManager : MonoBehaviour
     [Header("State Machine")]
     public ExperimentStateManager stateManager;
 
+    [Header("Rating UI (shown each condition, re-enabled on reset)")]
+    public GameObject ratingUI;    // disabled by default
+
     [Header("Reveal UI (World Space Canvases)")]
     public GameObject failUI;      // disabled by default
     public GameObject successUI;   // disabled by default
@@ -123,6 +126,7 @@ public class RevealManager : MonoBehaviour
     {
         _triggeredThisCondition = false;
 
+        if (ratingUI) ratingUI.SetActive(true);
         if (failUI) failUI.SetActive(false);
         if (successUI) successUI.SetActive(false);
 

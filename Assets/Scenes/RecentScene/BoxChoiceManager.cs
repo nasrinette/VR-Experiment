@@ -7,6 +7,9 @@ public class BoxChoiceManager : MonoBehaviour
     public GameObject nextPanel;
     public DoorManager doorManager;
 
+    [Header("Rating UI (shown after box choice, before nextPanel)")]
+    public GameObject ratingPanel;
+
     [Header("Start Room Door Auto-Close")]
     public DoorManager startRoomDoorManager;  // optional; if null, uses doorManager
     public float closeAfterSeconds = 30f;
@@ -28,13 +31,16 @@ public class BoxChoiceManager : MonoBehaviour
     public Rigidbody cubeWhiteRb;
 
     private bool _chosen;
+    private bool _rated;
     private Coroutine _closeRoutine;
 
     void Start()
     {
         _chosen = false;
+        _rated = false;
 
         if (choosePanel) choosePanel.SetActive(true);
+        if (ratingPanel) ratingPanel.SetActive(false);
         if (nextPanel) nextPanel.SetActive(false);
     }
 
@@ -47,13 +53,15 @@ public class BoxChoiceManager : MonoBehaviour
         _chosen = true;
 
         if (choosePanel) choosePanel.SetActive(false);
-        if (nextPanel) nextPanel.SetActive(true);
 
         // Hide boxes after the choice is made
         SetCubesVisible(false);
 
         // Open the door now
         if (doorManager) doorManager.Open();
+
+        // Show rating UI (user rates while watching door open)
+        if (ratingPanel) ratingPanel.SetActive(true);
 
         // Auto-close the start room door after delay
         var doorToClose = startRoomDoorManager != null ? startRoomDoorManager : doorManager;
@@ -63,7 +71,23 @@ public class BoxChoiceManager : MonoBehaviour
             _closeRoutine = StartCoroutine(CloseDoorAfterDelay(doorToClose, closeAfterSeconds));
         }
 
-        Debug.Log("[Experiment] Box chosen");
+        Debug.Log("[Experiment] Box chosen — rating UI shown");
+    }
+
+    /// <summary>
+    /// Called by rating UI buttons (1–5). Hook each button's OnClick to this method.
+    /// </summary>
+    public void SubmitRating(int rating)
+    {
+        if (_rated) return;
+        _rated = true;
+
+        QuestEventOutlet.Send($"box_rating_{rating}");
+
+        if (ratingPanel) ratingPanel.SetActive(false);
+        if (nextPanel) nextPanel.SetActive(true);
+
+        Debug.Log($"[Experiment] Rating submitted: {rating}");
     }
 
     private IEnumerator CloseDoorAfterDelay(DoorManager dm, float delay)
@@ -78,6 +102,7 @@ public class BoxChoiceManager : MonoBehaviour
     public void ResetChoice(bool closeDoorImmediately = true)
     {
         _chosen = false;
+        _rated = false;
 
         if (_closeRoutine != null)
         {
@@ -86,6 +111,7 @@ public class BoxChoiceManager : MonoBehaviour
         }
 
         if (choosePanel) choosePanel.SetActive(true);
+        if (ratingPanel) ratingPanel.SetActive(false);
         if (nextPanel) nextPanel.SetActive(false);
 
         // Close doors for a clean start
