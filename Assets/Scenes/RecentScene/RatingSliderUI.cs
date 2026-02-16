@@ -16,7 +16,7 @@ public class RatingSliderUI : MonoBehaviour
     [Header("Value display (auto-found child named 'ValueLabel', or created)")]
     public TMP_Text valueLabel;
 
-    [Header("Context tag written to CSV (e.g. box_choice, reveal)")]
+    [Header("Context tag for LSL marker (box_choice, reveal)")]
     public string ratingContext = "box_choice";
 
     [Header("Optional: notify BoxChoiceManager when done")]
@@ -87,7 +87,7 @@ public class RatingSliderUI : MonoBehaviour
     {
         int rating = slider != null ? Mathf.RoundToInt(slider.value) : 1;
 
-        // Log to CSV via RatingManager
+        // Send rating via LSL
         if (RatingManager.Instance != null)
             RatingManager.Instance.LogRating(ratingContext, rating);
 
