@@ -17,8 +17,8 @@ public class RoomManager : MonoBehaviour
     public float closeDelaySeconds = 0.2f;
     public float lockSeconds = 5f;
 
-    [Header("Timer UI (always visible)")]
-    public TMP_Text timerText;
+    // [Header("Timer UI (always visible)")]
+    // public TMP_Text timerText;
 
     [Header("Behaviour")]
     public bool openDoorWhenDone = true;
@@ -68,7 +68,7 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        SetTimerText(0f); // show 00:00 initially
+        // SetTimerText(0f); // show 00:00 initially
 
         // Cache the skybox that exists when the scene starts
         _startupSkybox = RenderSettings.skybox;
@@ -81,7 +81,7 @@ public class RoomManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (_running) return;
-        if (!doorManager || !timerText) return;
+        if (!doorManager ) return;
         if (!IsPlayerBody(other)) return;
 
         StartCoroutine(LockCycle());
@@ -114,7 +114,7 @@ public class RoomManager : MonoBehaviour
 
         // Start countdown immediately
         float remaining = lockSeconds;
-        SetTimerText(remaining);
+        // SetTimerText(remaining);
 
         QuestEventOutlet.Send($"timer_start:{name}:{lockSeconds}s");
 
@@ -140,12 +140,12 @@ public class RoomManager : MonoBehaviour
         {
             remaining -= Time.deltaTime;
             if (remaining < 0f) remaining = 0f;
-            SetTimerText(remaining);
+            // SetTimerText(remaining);
             yield return null;
         }
 
         // Freeze at 00:00
-        SetTimerText(0f);
+        // SetTimerText(0f);
         QuestEventOutlet.Send($"timer_end:{name}");
 
         // GLASS ROOM: restore everything + disable glass room again + restore skybox
@@ -166,16 +166,16 @@ public class RoomManager : MonoBehaviour
         _running = false;
     }
 
-    private void SetTimerText(float secondsRemaining)
-    {
-        if (!timerText) return;
+    // private void SetTimerText(float secondsRemaining)
+    // {
+    //     if (!timerText) return;
 
-        int totalSeconds = Mathf.Max(0, Mathf.CeilToInt(secondsRemaining));
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+    //     int totalSeconds = Mathf.Max(0, Mathf.CeilToInt(secondsRemaining));
+    //     int minutes = totalSeconds / 60;
+    //     int seconds = totalSeconds % 60;
 
-        timerText.text = $"{minutes:00}:{seconds:00}";
-    }
+    //     timerText.text = $"{minutes:00}:{seconds:00}";
+    // }
 
     // -------------------------------------------------
     // Glass room visual hiding logic (no script stopping)
@@ -202,7 +202,7 @@ public class RoomManager : MonoBehaviour
         if (rigRoot != null) preserved.Add(rigRoot);
 
         if (doorManager != null) preserved.Add(doorManager.transform);
-        if (timerText != null) preserved.Add(timerText.transform);
+        // if (timerText != null) preserved.Add(timerText.transform);
         if (glassRoomObject != null) preserved.Add(glassRoomObject.transform);
 
         // Hide all 3D visuals except preserved subtrees
@@ -321,7 +321,7 @@ public class RoomManager : MonoBehaviour
         StopAllCoroutines();
         _running = false;
 
-        SetTimerText(0f);
+        // SetTimerText(0f);
 
         // Ensure trigger is usable when re-enabled
         if (_triggerCollider != null)

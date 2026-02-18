@@ -173,7 +173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &10999064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,7 +2062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4f51a3a04cc4023972d346b7f54e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorHandleInteractable
-  hoverDuration: 2
+  hoverDuration: 1
   armedColor: {r: 0.2, g: 0.85, b: 1, a: 1}
   activatingColor: {r: 0.6, g: 1, b: 0.6, a: 1}
   pulseSpeed: 2
@@ -4013,7 +4013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &573369701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4138,7 +4138,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573369700}
   m_LocalRotation: {x: 0, y: -0.0209424, z: 0, w: 0.9997807}
-  m_LocalPosition: {x: 0, y: 0, z: -2.163599}
+  m_LocalPosition: {x: 0, y: 0, z: -2.8}
   m_LocalScale: {x: 0.009999998, y: 0.010000001, z: 0.009999998}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4147,7 +4147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -2.4, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.7498813, y: 1.6495564}
+  m_AnchoredPosition: {x: 2.8, y: 1.6495564}
   m_SizeDelta: {x: 118.8776, y: 62.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &585059113
@@ -4565,17 +4565,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1303404680627200340, guid: 63139745a1c674bffaa055bea0d27940, type: 3}
   m_PrefabInstance: {fileID: 626669722}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &626669724 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2112777789216943886, guid: 63139745a1c674bffaa055bea0d27940, type: 3}
-  m_PrefabInstance: {fileID: 626669722}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &632169625
 GameObject:
   m_ObjectHideFlags: 0
@@ -4767,7 +4756,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &667616643
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5302,7 +5291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &778041279
 Transform:
   m_ObjectHideFlags: 0
@@ -5442,17 +5431,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1303404680627200340, guid: 63139745a1c674bffaa055bea0d27940, type: 3}
   m_PrefabInstance: {fileID: 821964547}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &821964549 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2112777789216943886, guid: 63139745a1c674bffaa055bea0d27940, type: 3}
-  m_PrefabInstance: {fileID: 821964547}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &835609578
 GameObject:
   m_ObjectHideFlags: 0
@@ -5666,7 +5644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6100001
+      value: 2.8200002
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5674,7 +5652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.761
+      value: -4.2260003
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7959,7 +7937,6 @@ MonoBehaviour:
   playerBodyCollider: {fileID: 166720547}
   closeDelaySeconds: 0.2
   lockSeconds: 10
-  timerText: {fileID: 626669724}
   openDoorWhenDone: 1
   resetDoorOnDisable: 1
   isGlassRoom: 1
@@ -9220,7 +9197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdaf2688fc70e4114ab2ffa7bb8ded4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RatingManager
-  fileName: ratings.csv
 --- !u!4 &1537619056
 Transform:
   m_ObjectHideFlags: 0
@@ -11118,7 +11094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1747191869
 Transform:
   m_ObjectHideFlags: 0
@@ -11510,7 +11486,7 @@ MonoBehaviour:
   doorManager: {fileID: 528063872}
   ratingPanel: {fileID: 560842759}
   startRoomDoorManager: {fileID: 528063872}
-  closeAfterSeconds: 30
+  closeAfterSeconds: 180
   cubeBlack: {fileID: 558531620}
   cubeWhite: {fileID: 45390523}
   cubeBlackSpawn: {fileID: 558531620}
@@ -12260,7 +12236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1881000088
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12612,7 +12588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1919647119
 Transform:
   m_ObjectHideFlags: 0
@@ -13192,10 +13168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4f51a3a04cc4023972d346b7f54e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorHandleInteractable
-  hoverDuration: 2
+  hoverDuration: 1
   armedColor: {r: 0.2, g: 0.85, b: 1, a: 1}
   activatingColor: {r: 0.6, g: 1, b: 0.6, a: 1}
-  pulseSpeed: 2
+  pulseSpeed: 4
   handleRenderer: {fileID: 0}
   onHandleActivated:
     m_PersistentCalls:
@@ -13698,7 +13674,6 @@ MonoBehaviour:
   playerBodyCollider: {fileID: 166720547}
   closeDelaySeconds: 0.2
   lockSeconds: 10
-  timerText: {fileID: 4661919101836439152}
   openDoorWhenDone: 1
   resetDoorOnDisable: 1
   isGlassRoom: 1
@@ -14599,7 +14574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1287358560903104304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15199,17 +15174,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1303404680627200340, guid: 63139745a1c674bffaa055bea0d27940, type: 3}
   m_PrefabInstance: {fileID: 4661919101836439150}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4661919101836439152 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2112777789216943886, guid: 63139745a1c674bffaa055bea0d27940, type: 3}
-  m_PrefabInstance: {fileID: 4661919101836439150}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5520984020887820853
 GameObject:
   m_ObjectHideFlags: 0
@@ -15276,7 +15240,6 @@ MonoBehaviour:
   playerBodyCollider: {fileID: 166720547}
   closeDelaySeconds: 0.2
   lockSeconds: 60
-  timerText: {fileID: 626669724}
   openDoorWhenDone: 1
   resetDoorOnDisable: 1
   isGlassRoom: 1
@@ -15301,7 +15264,6 @@ MonoBehaviour:
   playerBodyCollider: {fileID: 166720547}
   closeDelaySeconds: 0.2
   lockSeconds: 60
-  timerText: {fileID: 821964549}
   openDoorWhenDone: 1
   resetDoorOnDisable: 1
   isGlassRoom: 1
