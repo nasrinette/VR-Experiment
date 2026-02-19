@@ -26,6 +26,8 @@ public class ExperimentStateManager : MonoBehaviour
     [Header("Force-enable visuals at Condition 2 start (optional)")]
     public GameObject[] forceEnableOnCondition2Start;
 
+    [HideInInspector] public bool swapConditions = false;
+
     // -----------------------------
     // Middle: visual isolation + collider isolation + skybox
     // -----------------------------
@@ -56,6 +58,12 @@ public class ExperimentStateManager : MonoBehaviour
 
     private void Start()
     {
+        // If SequenceManager flagged a swap, exchange condition roots
+        if (swapConditions)
+        {
+            (condition1Root, condition2Root) = (condition2Root, condition1Root);
+        }
+
         _startupSkybox = RenderSettings.skybox;
 
         SetReturnPlaneActive(false);
@@ -121,8 +129,9 @@ public class ExperimentStateManager : MonoBehaviour
             revealTrigger.ConfigureForCondition(activeRevealTrigger: true, showSuccess: false, resetAndHideUI: true);
         }
 
-        QuestEventOutlet.Send("condition1_start");
-        Debug.Log("[ExperimentStateManager] Condition 1 active.");
+        int firstLabel = swapConditions ? 2 : 1;
+        QuestEventOutlet.Send($"condition{firstLabel}_start");
+        Debug.Log($"[ExperimentStateManager] Condition {firstLabel} active (first).");
     }
 
     private void EnterMiddle()
@@ -163,8 +172,9 @@ public class ExperimentStateManager : MonoBehaviour
             revealTrigger.ConfigureForCondition(activeRevealTrigger: true, showSuccess: true, resetAndHideUI: true);
         }
 
-        QuestEventOutlet.Send("condition2_start");
-        Debug.Log("[ExperimentStateManager] Condition 2 active.");
+        int secondLabel = swapConditions ? 1 : 2;
+        QuestEventOutlet.Send($"condition{secondLabel}_start");
+        Debug.Log($"[ExperimentStateManager] Condition {secondLabel} active (second).");
     }
 
     /// <summary>
@@ -182,7 +192,8 @@ public class ExperimentStateManager : MonoBehaviour
         SetReturnPlaneActive(false);
 
         QuestEventOutlet.Send("experiment_end");
-        Debug.Log("[ExperimentStateManager] Condition 2 complete. Experiment ends here (success UI remains).");
+        int endLabel = swapConditions ? 1 : 2;
+        Debug.Log($"[ExperimentStateManager] Condition {endLabel} complete. Experiment ends here (success UI remains).");
     }
 
     private void SetReturnPlaneActive(bool active)

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d12fdc1d9b446b196fb72dbc752d7d, type: 3}
+  m_Name: SequenceConfig
+  m_EditorClassIdentifier: Assembly-CSharp::ExperimentSequenceConfig
+  skyboxes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  sequences:
+  - firstCondition: 1
+    skyboxOrder:
+    - 0
+    - 1
+    - 2
+    - 3
+  - firstCondition: 1
+    skyboxOrder:
+    - 2
+    - 3
+    - 0
+    - 1
+  - firstCondition: 1
+    skyboxOrder:
+    - 3
+    - 0
+    - 1
+    - 2
+  - firstCondition: 1
+    skyboxOrder:
+    - 1
+    - 2
+    - 3
+    - 0
+  - firstCondition: 2
+    skyboxOrder:
+    - 3
+    - 0
+    - 1
+    - 2
+  - firstCondition: 2
+    skyboxOrder:
+    - 1
+    - 2
+    - 3
+    - 0
+  - firstCondition: 2
+    skyboxOrder:
+    - 0
+    - 1
+    - 2
+    - 3
+  - firstCondition: 2
+    skyboxOrder:
+    - 2
+    - 3
+    - 0
+    - 1

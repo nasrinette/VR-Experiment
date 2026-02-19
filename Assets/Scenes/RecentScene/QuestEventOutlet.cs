@@ -72,6 +72,11 @@ public class QuestEventOutlet : MonoBehaviour
             var ch = channels.append_child("channel");
             ch.append_child_value("label", "EventMarker");
 
+            // Embed participant metadata into stream description
+            var subject = info.desc().append_child("subject");
+            subject.append_child_value("participant_id", SequenceManager.ParticipantId);
+            subject.append_child_value("sequence_number", SequenceManager.ActiveSequence.ToString());
+
             _outlet = new StreamOutlet(info);
             _outletReady = _outlet != null;
 
@@ -93,7 +98,7 @@ public class QuestEventOutlet : MonoBehaviour
             return;
         }
 
-        Send("app_start");
+        Send($"app_start:participant:{SequenceManager.ParticipantId}:sequence:{SequenceManager.ActiveSequence}");
     }
 
     /// <summary>

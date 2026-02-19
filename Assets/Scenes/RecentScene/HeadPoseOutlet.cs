@@ -69,6 +69,18 @@ public class HeadPoseOutlet : AFloatOutlet
 
             if (_outletReady)
             {
+                // Embed participant metadata into stream description
+                try
+                {
+                    var subj = outlet.info().desc().append_child("subject");
+                    subj.append_child_value("participant_id", SequenceManager.ParticipantId);
+                    subj.append_child_value("sequence_number", SequenceManager.ActiveSequence.ToString());
+                }
+                catch (System.Exception metaEx)
+                {
+                    Debug.LogWarning($"LOG [HeadPoseOutlet] Could not add participant metadata: {metaEx.Message}");
+                }
+
                 Debug.Log($"LOG [HeadPoseOutlet] Outlet created successfully — " +
                     $"{ChannelCount} channels, rate={Time.fixedDeltaTime:F4}s ({1.0 / Time.fixedDeltaTime:F1} Hz)");
                 Debug.Log($"LOG [HeadPoseOutlet] Waiting for consumers (LabRecorder) on the local network...");
