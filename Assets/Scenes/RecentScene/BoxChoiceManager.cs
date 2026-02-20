@@ -17,18 +17,27 @@ public class BoxChoiceManager : MonoBehaviour
     [Header("Optional: Reset cubes at condition start")]
     public Transform cubeBlack;
     public Transform cubeWhite;
+    public Transform cubeGray; 
 
     [Tooltip("Where black cube should be placed on reset.")]
     public Transform cubeBlackSpawn;
+    
 
     [Tooltip("Where white cube should be placed on reset.")]
     public Transform cubeWhiteSpawn;
+
+    [Tooltip("Where gray cube should be placed on reset.")]
+    public Transform cubeGraySpawn;
 
     [Tooltip("Optional; if not assigned, we try GetComponent<Rigidbody>() from cube transforms.")]
     public Rigidbody cubeBlackRb;
 
     [Tooltip("Optional; if not assigned, we try GetComponent<Rigidbody>() from cube transforms.")]
     public Rigidbody cubeWhiteRb;
+    
+
+    [Tooltip("Optional; if not assigned, we try GetComponent<Rigidbody>() from cube transforms.")]
+    public Rigidbody cubeGrayRb;
 
     private bool _chosen;
     private bool _rated;
@@ -46,7 +55,7 @@ public class BoxChoiceManager : MonoBehaviour
 
     public void ChooseBlack() { QuestEventOutlet.Send("box_choose_black"); Choose(); }
     public void ChooseWhite() { QuestEventOutlet.Send("box_choose_white"); Choose(); }
-
+    public void ChooseGray() { QuestEventOutlet.Send("box_choose_gray"); Choose(); }
     private void Choose()
     {
         if (_chosen) return;
@@ -57,19 +66,8 @@ public class BoxChoiceManager : MonoBehaviour
         // Hide boxes after the choice is made
         SetCubesVisible(false);
 
-        // Open the door now
-        if (doorManager) doorManager.Open();
-
-        // Show rating UI (user rates while watching door open)
+        // Show rating UI — door opens only after the user submits their rating
         if (ratingPanel) ratingPanel.SetActive(true);
-
-        // Auto-close the start room door after delay
-        var doorToClose = startRoomDoorManager != null ? startRoomDoorManager : doorManager;
-        if (doorToClose != null)
-        {
-            if (_closeRoutine != null) StopCoroutine(_closeRoutine);
-            _closeRoutine = StartCoroutine(CloseDoorAfterDelay(doorToClose, closeAfterSeconds));
-        }
 
         Debug.Log("[Experiment] Box chosen — rating UI shown");
     }
@@ -84,10 +82,29 @@ public class BoxChoiceManager : MonoBehaviour
 
         QuestEventOutlet.Send($"box_rating_{rating}");
 
+        // Open the door now that the user has submitted their rating
+        if (doorManager) doorManager.Open();
+
+        // Auto-close the start room door after delay
+        var doorToClose = startRoomDoorManager != null ? startRoomDoorManager : doorManager;
+        if (doorToClose != null)
+        {
+            if (_closeRoutine != null) StopCoroutine(_closeRoutine);
+            _closeRoutine = StartCoroutine(CloseDoorAfterDelay(doorToClose, closeAfterSeconds));
+        }
+
         if (ratingPanel) ratingPanel.SetActive(false);
         if (nextPanel) nextPanel.SetActive(true);
 
-        Debug.Log($"[Experiment] Rating submitted: {rating}");
+        Debug.Log($"[Experiment] Rating submitted: {rating} — door opened");
+    }
+
+    /// <summary>
+    /// Called by the Close button on the nextPanel to dismiss it.
+    /// </summary>
+    public void DismissNextPanel()
+    {
+        if (nextPanel) nextPanel.SetActive(false);
     }
 
     private IEnumerator CloseDoorAfterDelay(DoorManager dm, float delay)
@@ -127,6 +144,7 @@ public class BoxChoiceManager : MonoBehaviour
         SetCubesVisible(true);
         ResetCube(cubeBlack, cubeBlackSpawn, ref cubeBlackRb);
         ResetCube(cubeWhite, cubeWhiteSpawn, ref cubeWhiteRb);
+        ResetCube(cubeGray, cubeGraySpawn, ref cubeGrayRb);
 
         Debug.Log("[Experiment] Box choice reset");
     }
@@ -135,6 +153,7 @@ public class BoxChoiceManager : MonoBehaviour
     {
         if (cubeBlack != null) cubeBlack.gameObject.SetActive(visible);
         if (cubeWhite != null) cubeWhite.gameObject.SetActive(visible);
+        if (cubeGray != null) cubeGray.gameObject.SetActive(visible);
     }
 
     private static void ResetCube(Transform cube, Transform spawn, ref Rigidbody rb)

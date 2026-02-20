@@ -6,23 +6,15 @@ using UnityEngine.UI; // for Graphic (UI + TMP UGUI visuals)
 
 public class RoomManager : MonoBehaviour
 {
-    [Header("Door to lock")]
-    public DoorManager doorManager;
-
     [Header("Player collider (recommended)")]
     [Tooltip("Assign the XR Origin's CharacterController object collider (or a dedicated PlayerBody collider).")]
     public Collider playerBodyCollider; // best: a single collider, not hands
 
     [Header("Timing")]
-    public float closeDelaySeconds = 0.2f;
     public float lockSeconds = 5f;
 
     // [Header("Timer UI (always visible)")]
     // public TMP_Text timerText;
-
-    [Header("Behaviour")]
-    public bool openDoorWhenDone = true;
-    public bool resetDoorOnDisable = true;
 
     // -----------------------------
     // Glass room additions (optional)
@@ -62,8 +54,10 @@ public class RoomManager : MonoBehaviour
     private void Awake()
     {
         _triggerCollider = GetComponent<Collider>();
-        if (_triggerCollider == null || !_triggerCollider.isTrigger)
-            Debug.LogWarning("[RoomManager] This object should have a Collider set as Is Trigger.", this);
+        if (_triggerCollider == null)
+            Debug.LogError($"[RoomManager] ({name}) No Collider found on this GameObject!", this);
+        else if (!_triggerCollider.isTrigger)
+            Debug.LogWarning($"[RoomManager] ({name}) Collider is NOT set as Is Trigger!", this);
     }
 
     private void Start()
@@ -76,12 +70,12 @@ public class RoomManager : MonoBehaviour
         // Ensure glass room starts disabled
         if (isGlassRoom && glassRoomObject != null)
             glassRoomObject.SetActive(false);
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (_running) return;
-        if (!doorManager ) return;
         if (!IsPlayerBody(other)) return;
 
         StartCoroutine(LockCycle());
@@ -114,7 +108,6 @@ public class RoomManager : MonoBehaviour
 
         // Start countdown immediately
         float remaining = lockSeconds;
-        // SetTimerText(remaining);
 
         QuestEventOutlet.Send($"timer_start:{name}:{lockSeconds}s");
 
@@ -129,23 +122,14 @@ public class RoomManager : MonoBehaviour
             ApplyGlassRoomSkybox();
         }
 
-        // Close behind user after a short delay (so it closes behind them, not onto them)
-        if (closeDelaySeconds > 0f)
-            yield return new WaitForSeconds(closeDelaySeconds);
-
-        doorManager.Close();
-
         // Update once per frame
         while (remaining > 0f)
         {
             remaining -= Time.deltaTime;
             if (remaining < 0f) remaining = 0f;
-            // SetTimerText(remaining);
             yield return null;
         }
 
-        // Freeze at 00:00
-        // SetTimerText(0f);
         QuestEventOutlet.Send($"timer_end:{name}");
 
         // GLASS ROOM: restore everything + disable glass room again + restore skybox
@@ -158,9 +142,6 @@ public class RoomManager : MonoBehaviour
             if (glassRoomObject != null)
                 glassRoomObject.SetActive(false);
         }
-
-        if (openDoorWhenDone)
-            doorManager.Open();
 
         // Keep trigger disabled until the player exits (OnTriggerExit will re-enable it)
         _running = false;
@@ -201,7 +182,6 @@ public class RoomManager : MonoBehaviour
             : (playerBodyCollider != null ? playerBodyCollider.transform.root : null);
         if (rigRoot != null) preserved.Add(rigRoot);
 
-        if (doorManager != null) preserved.Add(doorManager.transform);
         // if (timerText != null) preserved.Add(timerText.transform);
         if (glassRoomObject != null) preserved.Add(glassRoomObject.transform);
 
@@ -296,21 +276,22 @@ public class RoomManager : MonoBehaviour
     // -----------------------------
     private void ApplyGlassRoomSkybox()
     {
-        if (roomSkybox == null) return;
+        if (roomSkybox == null)
+            return;
 
         RenderSettings.skybox = roomSkybox;
         _skyboxOverridden = true;
 
-        // If you use skybox-based ambient lighting/reflections, update the environment.
         DynamicGI.UpdateEnvironment();
     }
 
     private void RestoreDefaultSkybox()
     {
-        if (!_skyboxOverridden) return;
+        if (!_skyboxOverridden)
+            return;
 
-        // Prefer explicit defaultSkybox; otherwise fall back to what the scene had at Start().
-        RenderSettings.skybox = defaultSkybox != null ? defaultSkybox : _startupSkybox;
+        Material toRestore = defaultSkybox != null ? defaultSkybox : _startupSkybox;
+        RenderSettings.skybox = toRestore;
         _skyboxOverridden = false;
 
         DynamicGI.UpdateEnvironment();
@@ -318,6 +299,7 @@ public class RoomManager : MonoBehaviour
 
     private void OnDisable()
     {
+        // Debug.Log($"[RoomManager] ({name}) OnDisable — _running={_running}, isGlassRoom={isGlassRoom}");
         StopAllCoroutines();
         _running = false;
 
@@ -337,7 +319,5 @@ public class RoomManager : MonoBehaviour
                 glassRoomObject.SetActive(false);
         }
 
-        if (resetDoorOnDisable && doorManager != null)
-            doorManager.SetOpenImmediate(true);
     }
 }
