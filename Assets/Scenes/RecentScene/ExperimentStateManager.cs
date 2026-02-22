@@ -20,8 +20,8 @@ public class ExperimentStateManager : MonoBehaviour
     [Header("Return plane (Middle -> Condition2)")]
     public StayOnPlaneToAdvance returnPlaneTrigger; // plane GO disabled by default
 
-    [Header("Timing")]
-    public float revealDisplaySeconds = 20f;
+    [Header("Timing (unused – middle now starts on button click)")]
+    [HideInInspector] public float revealDisplaySeconds = 20f;
 
     [Header("Force-enable visuals at Condition 2 start (optional)")]
     public GameObject[] forceEnableOnCondition2Start;
@@ -80,9 +80,46 @@ public class ExperimentStateManager : MonoBehaviour
         if (_ended || _advancing) return;
 
         if (_phase == Phase.Condition1)
-            StartCoroutine(ToMiddleAfterRevealDelay());
+        {
+            // Don't auto-advance; wait for user to click "Continue" on Fail UI
+            _advancing = true;
+            QuestEventOutlet.Send("condition1_reveal_waiting");
+            Debug.Log("[ExperimentStateManager] Condition 1 reveal shown. Waiting for user to press Continue.");
+        }
         else if (_phase == Phase.Condition2)
+        {
             EndAfterCondition2KeepSuccessUI();
+        }
+    }
+
+    /// <summary>
+    /// Called by the Continue button on the Fail UI to start the washout (middle) period.
+    /// </summary>
+    public void OnFailContinueClicked()
+    {
+        if (_phase != Phase.Condition1 || !_advancing) return;
+
+        // Reset reveal room (close door + hide fail UI)
+        if (revealTrigger != null)
+            revealTrigger.ResetRevealRoom(closeDoor: true);
+
+        EnterMiddle();
+        _advancing = false;
+    }
+
+    /// <summary>
+    /// Called by the End button on the Success UI to quit the application.
+    /// </summary>
+    public void OnEndClicked()
+    {
+        QuestEventOutlet.Send("app_quit");
+        Debug.Log("[ExperimentStateManager] User clicked End. Quitting application.");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     // Called by StayOnPlaneToAdvance after hold duration
@@ -92,22 +129,6 @@ public class ExperimentStateManager : MonoBehaviour
         if (_phase != Phase.Middle) return;
 
         EnterCondition2();
-    }
-
-    private IEnumerator ToMiddleAfterRevealDelay()
-    {
-        _advancing = true;
-
-        if (revealDisplaySeconds > 0f)
-            yield return new WaitForSeconds(revealDisplaySeconds);
-
-        // Reset reveal room after Condition 1 ends (close door + hide UI)
-        if (revealTrigger != null)
-            revealTrigger.ResetRevealRoom(closeDoor: true);
-
-        EnterMiddle();
-
-        _advancing = false;
     }
 
     private void EnterCondition1()

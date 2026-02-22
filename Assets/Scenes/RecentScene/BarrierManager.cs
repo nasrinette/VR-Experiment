@@ -39,6 +39,13 @@ public class BarrierManager : MonoBehaviour
     [Tooltip("Fallback delay if openDelays is null, empty, or shorter than the barrier count")]
     public float defaultOpenDelay = 10f;
 
+    [Header("Glass Room Lock Addition")]
+    [Tooltip("Reference to the glass room RoomManager whose lockSeconds will be added to specific barriers")]
+    public RoomManager glassRoom;
+
+    [Tooltip("Barrier indices whose delay = openDelays[i] + glassRoom.lockSeconds (e.g. [4] for Condition 1, [1,3] for Condition 2)")]
+    public int[] addGlassRoomLockIndices;
+
     /// <summary>Raised once when every barrier in the array has opened.</summary>
     public event System.Action OnAllBarriersOpen;
 
@@ -108,9 +115,23 @@ public class BarrierManager : MonoBehaviour
 
     private float GetDelay(int index)
     {
-        if (openDelays != null && index < openDelays.Length && openDelays[index] > 0f)
-            return openDelays[index];
-        return defaultOpenDelay;
+        float delay = (openDelays != null && index < openDelays.Length && openDelays[index] > 0f)
+            ? openDelays[index]
+            : defaultOpenDelay;
+
+        if (glassRoom != null && addGlassRoomLockIndices != null)
+        {
+            for (int i = 0; i < addGlassRoomLockIndices.Length; i++)
+            {
+                if (addGlassRoomLockIndices[i] == index)
+                {
+                    delay += glassRoom.lockSeconds;
+                    break;
+                }
+            }
+        }
+
+        return delay;
     }
 
     /// <summary>Called by BarrierTriggerForwarder when something enters a trigger zone.</summary>

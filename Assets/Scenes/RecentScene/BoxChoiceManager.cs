@@ -7,8 +7,11 @@ public class BoxChoiceManager : MonoBehaviour
     public GameObject nextPanel;
     public DoorManager doorManager;
 
-    [Header("Rating UI (shown after box choice, before nextPanel)")]
+    [Header("Rating UI (shown after After Select UI)")]
     public GameObject ratingPanel;
+
+    [Header("After Rating UI (shown after rating, before door opens)")]
+    public GameObject afterRatingPanel;
 
     [Header("Start Room Door Auto-Close")]
     public DoorManager startRoomDoorManager;  // optional; if null, uses doorManager
@@ -49,8 +52,9 @@ public class BoxChoiceManager : MonoBehaviour
         _rated = false;
 
         if (choosePanel) choosePanel.SetActive(true);
-        if (ratingPanel) ratingPanel.SetActive(false);
         if (nextPanel) nextPanel.SetActive(false);
+        if (ratingPanel) ratingPanel.SetActive(false);
+        if (afterRatingPanel) afterRatingPanel.SetActive(false);
     }
 
     public void ChooseBlack() { QuestEventOutlet.Send("box_choose_black"); Choose(); }
@@ -66,14 +70,25 @@ public class BoxChoiceManager : MonoBehaviour
         // Hide boxes after the choice is made
         SetCubesVisible(false);
 
-        // Show rating UI — door opens only after the user submits their rating
-        if (ratingPanel) ratingPanel.SetActive(true);
+        // Show After Select UI — user must click "ok" before rating slider appears
+        if (nextPanel) nextPanel.SetActive(true);
 
-        Debug.Log("[Experiment] Box chosen — rating UI shown");
+        Debug.Log("[Experiment] Box chosen — After Select UI shown");
     }
 
     /// <summary>
-    /// Called by rating UI buttons (1–5). Hook each button's OnClick to this method.
+    /// Called by the "ok" button on After Select UI to advance to the rating slider.
+    /// </summary>
+    public void OnAfterSelectOk()
+    {
+        if (nextPanel) nextPanel.SetActive(false);
+        if (ratingPanel) ratingPanel.SetActive(true);
+
+        Debug.Log("[Experiment] After Select UI dismissed — rating slider shown");
+    }
+
+    /// <summary>
+    /// Called by RatingSliderUI when the user clicks Done.
     /// </summary>
     public void SubmitRating(int rating)
     {
@@ -82,7 +97,20 @@ public class BoxChoiceManager : MonoBehaviour
 
         QuestEventOutlet.Send($"box_rating_{rating}");
 
-        // Open the door now that the user has submitted their rating
+        if (ratingPanel) ratingPanel.SetActive(false);
+        if (afterRatingPanel) afterRatingPanel.SetActive(true);
+
+        Debug.Log($"[Experiment] Rating submitted: {rating} — After Rating UI shown");
+    }
+
+    /// <summary>
+    /// Called by the "ok" button on After Rating UI. Opens the door so the user can walk.
+    /// </summary>
+    public void OnAfterRatingOk()
+    {
+        if (afterRatingPanel) afterRatingPanel.SetActive(false);
+
+        // Open the door now
         if (doorManager) doorManager.Open();
 
         // Auto-close the start room door after delay
@@ -93,18 +121,7 @@ public class BoxChoiceManager : MonoBehaviour
             _closeRoutine = StartCoroutine(CloseDoorAfterDelay(doorToClose, closeAfterSeconds));
         }
 
-        if (ratingPanel) ratingPanel.SetActive(false);
-        if (nextPanel) nextPanel.SetActive(true);
-
-        Debug.Log($"[Experiment] Rating submitted: {rating} — door opened");
-    }
-
-    /// <summary>
-    /// Called by the Close button on the nextPanel to dismiss it.
-    /// </summary>
-    public void DismissNextPanel()
-    {
-        if (nextPanel) nextPanel.SetActive(false);
+        Debug.Log("[Experiment] After Rating dismissed — door opened");
     }
 
     private IEnumerator CloseDoorAfterDelay(DoorManager dm, float delay)
@@ -128,8 +145,9 @@ public class BoxChoiceManager : MonoBehaviour
         }
 
         if (choosePanel) choosePanel.SetActive(true);
-        if (ratingPanel) ratingPanel.SetActive(false);
         if (nextPanel) nextPanel.SetActive(false);
+        if (ratingPanel) ratingPanel.SetActive(false);
+        if (afterRatingPanel) afterRatingPanel.SetActive(false);
 
         // Close doors for a clean start
         if (closeDoorImmediately)
