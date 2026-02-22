@@ -33,8 +33,14 @@ public class BarrierManager : MonoBehaviour
     public Collider playerBodyCollider;
 
     [Header("Timing")]
-    [Tooltip("Seconds to wait after the player hits a trigger before opening the turnstile")]
-    public float openDelay = 10f;
+    [Tooltip("Per-barrier delays in seconds, mapped by index (e.g. [20,30,60,120,90])")]
+    public float[] openDelays;
+
+    [Tooltip("Fallback delay if openDelays is null, empty, or shorter than the barrier count")]
+    public float defaultOpenDelay = 10f;
+
+    /// <summary>Raised once when every barrier in the array has opened.</summary>
+    public event System.Action OnAllBarriersOpen;
 
     [Header("Open Animation")]
     [Tooltip("Angle (degrees) each glass panel swings open")]
@@ -96,6 +102,17 @@ public class BarrierManager : MonoBehaviour
         }
     }
 
+    /// <summary>True when the last barrier in the array has opened.</summary>
+    public bool LastBarrierOpen =>
+        _isOpen != null && _isOpen.Length > 0 && _isOpen[_isOpen.Length - 1];
+
+    private float GetDelay(int index)
+    {
+        if (openDelays != null && index < openDelays.Length && openDelays[index] > 0f)
+            return openDelays[index];
+        return defaultOpenDelay;
+    }
+
     /// <summary>Called by BarrierTriggerForwarder when something enters a trigger zone.</summary>
     public void OnPlayerEnteredTrigger(int index, Collider other)
     {
@@ -109,13 +126,15 @@ public class BarrierManager : MonoBehaviour
     {
         _timerActive[index] = true;
 
+        float delay = GetDelay(index);
+
         string triggerName = barriers[index].triggerZone != null
             ? barriers[index].triggerZone.name : index.ToString();
 
         QuestEventOutlet.Send($"barrier_trigger:{triggerName}");
-        QuestEventOutlet.Send($"barrier_timer_start:{triggerName}:{openDelay}s");
+        QuestEventOutlet.Send($"barrier_timer_start:{triggerName}:{delay}s");
 
-        yield return new WaitForSeconds(openDelay);
+        yield return new WaitForSeconds(delay);
 
         QuestEventOutlet.Send($"barrier_timer_end:{triggerName}");
 
@@ -142,6 +161,12 @@ public class BarrierManager : MonoBehaviour
         _timerActive[index] = false;
 
         QuestEventOutlet.Send($"barrier_open:{triggerName}");
+
+        if (index == barriers.Length - 1)
+        {
+            QuestEventOutlet.Send("last_barrier_open");
+            OnAllBarriersOpen?.Invoke();
+        }
     }
 
     /// <summary>Reset all barriers to closed (useful when switching conditions).</summary>

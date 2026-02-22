@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class StayOnPlaneToAdvance : MonoBehaviour
 {
@@ -9,21 +9,15 @@ public class StayOnPlaneToAdvance : MonoBehaviour
     [Header("State machine")]
     public ExperimentStateManager stateManager;
 
-    [Header("Timing")]
-    public float secondsRequired = 5f;
-
-    private Coroutine _routine;
     private bool _armed;
+    private bool _playerOnPlane;
+    private bool _advanced;
 
     public void SetArmed(bool armed)
     {
         _armed = armed;
-
-        if (!armed && _routine != null)
-        {
-            StopCoroutine(_routine);
-            _routine = null;
-        }
+        _playerOnPlane = false;
+        _advanced = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,39 +25,43 @@ public class StayOnPlaneToAdvance : MonoBehaviour
         if (!_armed) return;
         if (!IsPlayerBody(other)) return;
 
-        if (_routine != null) StopCoroutine(_routine);
-        _routine = StartCoroutine(HoldRoutine());
+        _playerOnPlane = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!IsPlayerBody(other)) return;
 
-        if (_routine != null)
+        _playerOnPlane = false;
+    }
+
+    private void Update()
+    {
+        if (!_armed || !_playerOnPlane || _advanced) return;
+
+        if (IsYButtonPressed())
         {
-            StopCoroutine(_routine);
-            _routine = null;
+            _advanced = true;
+            QuestEventOutlet.Send("return_plane_held");
+            if (stateManager != null)
+                stateManager.OnReturnPlaneHeld();
         }
+    }
+
+    private bool IsYButtonPressed()
+    {
+        var leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        if (leftHand.isValid &&
+            leftHand.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed) &&
+            pressed)
+        {
+            return true;
+        }
+        return false;
     }
 
     private bool IsPlayerBody(Collider other)
     {
         return playerBodyCollider != null && other == playerBodyCollider;
-    }
-
-    private IEnumerator HoldRoutine()
-    {
-        float t = 0f;
-        while (t < secondsRequired)
-        {
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        _routine = null;
-
-        QuestEventOutlet.Send("return_plane_held");
-        if (stateManager != null)
-            stateManager.OnReturnPlaneHeld();
     }
 }

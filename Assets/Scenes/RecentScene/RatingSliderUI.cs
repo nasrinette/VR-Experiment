@@ -95,7 +95,19 @@ public class RatingSliderUI : MonoBehaviour
         if (boxChoiceManager != null)
             boxChoiceManager.SubmitRating(rating);
 
+        onRatingDone?.Invoke();
+
         // Close this popup
         gameObject.SetActive(false);
+    }
+
+    public System.Action onRatingDone;
+
+    public void SetInteractable(bool interactable)
+    {
+        if (slider != null)
+            slider.interactable = interactable;
+        if (doneButton != null)
+            doneButton.interactable = interactable;
     }
 }

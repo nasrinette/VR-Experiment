@@ -10,9 +10,6 @@ public class RevealManager : MonoBehaviour
     [Tooltip("If assigned, the door opens via handle click instead of proximity. Supports both sides of the door.")]
     public DoorHandleInteractable[] doorHandleInteractables;
 
-    [Header("XR Rig / XR Origin")]
-    public Transform xrOrigin;
-
     [Header("State Machine")]
     public ExperimentStateManager stateManager;
 
@@ -23,14 +20,31 @@ public class RevealManager : MonoBehaviour
     public GameObject failUI;      // disabled by default
     public GameObject successUI;   // disabled by default
 
+    [Header("Barrier Completion Gating")]
+    [Tooltip("Assign all BarrierManagers (one per condition). Rating slider is hidden until the active one completes.")]
+    public BarrierManager[] barrierManagers;
+
     [Header("Behavior")]
     public bool triggerOncePerCondition = true;
 
     private bool _isActiveRevealTrigger = false;
     private bool _showSuccessThisCondition = false;
     private bool _triggeredThisCondition = false;
+    private bool _ratingDone = false;
+    private RatingSliderUI _ratingSliderUI;
 
     private bool HasHandles => doorHandleInteractables != null && doorHandleInteractables.Length > 0;
+
+    private bool HasBarrierManagers => barrierManagers != null && barrierManagers.Length > 0;
+
+    private bool AnyBarrierManagerLastOpen()
+    {
+        if (!HasBarrierManagers) return true;
+        foreach (var bm in barrierManagers)
+            if (bm != null && bm.isActiveAndEnabled && bm.LastBarrierOpen)
+                return true;
+        return false;
+    }
 
     private void Start()
     {
@@ -39,26 +53,29 @@ public class RevealManager : MonoBehaviour
             foreach (var handle in doorHandleInteractables)
                 if (handle != null)
                     handle.onHandleActivated.AddListener(OnDoorHandleActivated);
+
+        if (HasBarrierManagers)
+            foreach (var bm in barrierManagers)
+                if (bm != null)
+                    bm.OnAllBarriersOpen += OnAllBarriersOpen;
+
+        if (ratingUI != null)
+        {
+            _ratingSliderUI = ratingUI.GetComponentInChildren<RatingSliderUI>(true);
+            if (_ratingSliderUI != null)
+                _ratingSliderUI.onRatingDone += OnRatingDone;
+        }
     }
 
-    private void OnTriggerEnter(Collider other) => TryTrigger(other);
-    private void OnTriggerStay(Collider other)  => TryTrigger(other);
-
-    private void TryTrigger(Collider other)
+    private void OnDestroy()
     {
-        if (!_isActiveRevealTrigger) return;
-        if (triggerOncePerCondition && _triggeredThisCondition) return;
-        if (!xrOrigin || !stateManager) return;
+        if (HasBarrierManagers)
+            foreach (var bm in barrierManagers)
+                if (bm != null)
+                    bm.OnAllBarriersOpen -= OnAllBarriersOpen;
 
-        if (other.transform != xrOrigin && !other.transform.IsChildOf(xrOrigin))
-            return;
-
-        // If door handles are assigned, don't auto-open the door on proximity.
-        // The player must click the handle instead.
-        if (HasHandles)
-            return;
-
-        PerformReveal();
+        if (_ratingSliderUI != null)
+            _ratingSliderUI.onRatingDone -= OnRatingDone;
     }
 
     /// <summary>
@@ -67,10 +84,34 @@ public class RevealManager : MonoBehaviour
     private void OnDoorHandleActivated()
     {
         if (!_isActiveRevealTrigger) return;
+        if (!_ratingDone && HasBarrierManagers) return;
         if (triggerOncePerCondition && _triggeredThisCondition) return;
         if (!stateManager) return;
 
         PerformReveal();
+    }
+
+    private void OnAllBarriersOpen()
+    {
+        if (ratingUI != null)
+            ratingUI.SetActive(true);
+
+        QuestEventOutlet.Send("rating_slider_enabled");
+        Debug.Log("[RevealManager] All barriers open – rating slider shown.");
+    }
+
+    private void OnRatingDone()
+    {
+        _ratingDone = true;
+
+        // Arm handles now so the player can open the reveal door
+        if (_isActiveRevealTrigger && HasHandles)
+            foreach (var handle in doorHandleInteractables)
+                if (handle != null)
+                    handle.SetArmed(true);
+
+        QuestEventOutlet.Send("rating_done");
+        Debug.Log("[RevealManager] Rating submitted – door handle now armed.");
     }
 
     private void PerformReveal()
@@ -115,18 +156,26 @@ public class RevealManager : MonoBehaviour
             ResetRevealRoom(closeDoor: false);
         }
 
-        // Arm/disarm handles AFTER reset so reset doesn't undo arming
-        if (HasHandles)
+        // Handles stay disarmed until rating is submitted (OnRatingDone arms them).
+        // If there is no rating UI at all, arm immediately so the door still works.
+        if (HasHandles && activeRevealTrigger && ratingUI == null)
             foreach (var handle in doorHandleInteractables)
                 if (handle != null)
-                    handle.SetArmed(activeRevealTrigger);
+                    handle.SetArmed(true);
     }
 
     public void ResetRevealRoom(bool closeDoor)
     {
         _triggeredThisCondition = false;
+        _ratingDone = false;
 
-        if (ratingUI) ratingUI.SetActive(true);
+        // Hide rating UI until the active condition's barriers complete
+        if (ratingUI)
+        {
+            bool show = !HasBarrierManagers || AnyBarrierManagerLastOpen();
+            ratingUI.SetActive(show);
+        }
+
         if (failUI) failUI.SetActive(false);
         if (successUI) successUI.SetActive(false);
 
