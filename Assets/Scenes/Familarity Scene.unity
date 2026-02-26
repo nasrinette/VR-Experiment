@@ -4572,12 +4572,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731942551}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3351, y: 0, z: 1.01165}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.24573, y: -2.12333, z: 6.38458}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2095125014}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1731942553
 MonoBehaviour:
@@ -5291,6 +5291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1731942552}
   - {fileID: 1580684839}
   - {fileID: 1196860080342981648}
   - {fileID: 10999068}
@@ -5478,6 +5479,8 @@ MonoBehaviour:
   openDelays:
   - 5
   defaultOpenDelay: 5
+  glassRoom: {fileID: 0}
+  addGlassRoomLockIndices: 
   openAngle: 90
   animationDuration: 0.8
 --- !u!1 &1551497779851504963
@@ -6105,4 +6108,3 @@ SceneRoots:
   - {fileID: 1703568386}
   - {fileID: 610590593}
   - {fileID: 2095125014}
-  - {fileID: 1731942552}

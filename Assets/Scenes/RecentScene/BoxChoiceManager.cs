@@ -63,6 +63,7 @@ public class BoxChoiceManager : MonoBehaviour
     private void Choose()
     {
         if (_chosen) return;
+        if (FamilarityManager.IsFamiliarityActive) return; // ignore input from familiarity env cubes
         _chosen = true;
 
         if (choosePanel) choosePanel.SetActive(false);
