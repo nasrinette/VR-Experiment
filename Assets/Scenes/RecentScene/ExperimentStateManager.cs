@@ -28,6 +28,13 @@ public class ExperimentStateManager : MonoBehaviour
 
     [HideInInspector] public bool swapConditions = false;
 
+    /// <summary>
+    /// Set by SequenceSelectionUI before enabling this component.
+    /// 0 = default (start from first condition in sequence), 1 = jump to C1, 2 = jump to C2.
+    /// Reveal type (fail/success) is always determined by the sequence order, not this value.
+    /// </summary>
+    [HideInInspector] public int startFromCondition = 0;
+
     // -----------------------------
     // Middle: visual isolation + collider isolation + skybox
     // -----------------------------
@@ -58,11 +65,9 @@ public class ExperimentStateManager : MonoBehaviour
 
     private void Start()
     {
-        // If SequenceManager flagged a swap, exchange condition roots
+        // If SequenceManager flagged a swap, exchange condition roots permanently.
         if (swapConditions)
-        {
             (condition1Root, condition2Root) = (condition2Root, condition1Root);
-        }
 
         _startupSkybox = RenderSettings.skybox;
 
@@ -71,7 +76,10 @@ public class ExperimentStateManager : MonoBehaviour
         if (revealTrigger != null)
             revealTrigger.ResetRevealRoom(closeDoor: true);
 
-        EnterCondition1();
+        if (startFromCondition != 0 && IsSecondCondition(startFromCondition))
+            EnterCondition2();
+        else
+            EnterCondition1();
     }
 
     // Called by RevealManager
@@ -130,6 +138,28 @@ public class ExperimentStateManager : MonoBehaviour
 
         EnterCondition2();
     }
+
+    /// <summary>
+    /// Jump directly to a physical condition at any time (e.g. after reopening the sequence menu).
+    /// physicalConditionNumber: 1 = C1, 2 = C2.
+    /// Reveal type (fail for first, success for second) is preserved based on the sequence order.
+    /// </summary>
+    public void JumpToCondition(int physicalConditionNumber)
+    {
+        if (physicalConditionNumber == 0) return;
+        _ended    = false;
+        _advancing = false;
+
+        if (IsSecondCondition(physicalConditionNumber))
+            EnterCondition2();
+        else
+            EnterCondition1();
+    }
+
+    // True when the physical condition number maps to the SECOND slot in this sequence.
+    // swapConditions is already applied to the roots, so the mapping is stable.
+    private bool IsSecondCondition(int physicalConditionNumber) =>
+        (physicalConditionNumber == 2) != swapConditions;
 
     private void EnterCondition1()
     {

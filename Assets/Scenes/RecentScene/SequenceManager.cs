@@ -10,6 +10,10 @@ public class SequenceManager : MonoBehaviour
     [Range(1, 8)]
     public int sequenceNumber = 1;
 
+    [Header("Startup")]
+    [Tooltip("When true, Awake() does nothing — SequenceSelectionUI will call Initialize() after the user confirms.")]
+    public bool waitForSelectionUI = true;
+
     [Header("Skyboxes (s1, s2, s3, s4)")]
     public Material[] skyboxes = new Material[4];
 
@@ -29,9 +33,33 @@ public class SequenceManager : MonoBehaviour
 
     private void Awake()
     {
-        // Publish to statics so LSL outlets can read them
-        ParticipantId = participantId;
-        ActiveSequence = sequenceNumber;
+        if (waitForSelectionUI)
+        {
+            // Publish Inspector defaults so LSL outlets have a fallback value.
+            // Real values will be applied when SequenceSelectionUI calls Initialize().
+            ParticipantId = participantId;
+            ActiveSequence = sequenceNumber;
+            return;
+        }
+
+        ApplySequence(participantId, sequenceNumber);
+    }
+
+    /// <summary>
+    /// Called by SequenceSelectionUI once the user confirms their participant ID and sequence.
+    /// Also safe to call from code when not using the selection UI.
+    /// </summary>
+    public void Initialize(string pid, int seqNum)
+    {
+        participantId = pid;
+        sequenceNumber = seqNum;
+        ApplySequence(pid, seqNum);
+    }
+
+    private void ApplySequence(string pid, int seqNum)
+    {
+        ParticipantId = pid;
+        ActiveSequence = seqNum;
 
         if (config == null)
         {
@@ -39,42 +67,37 @@ public class SequenceManager : MonoBehaviour
             return;
         }
 
-        if (sequenceNumber < 1 || sequenceNumber > config.sequences.Length)
+        if (seqNum < 1 || seqNum > config.sequences.Length)
         {
-            Debug.LogError($"[SequenceManager] Sequence number {sequenceNumber} out of range (1-{config.sequences.Length}).");
+            Debug.LogError($"[SequenceManager] Sequence number {seqNum} out of range (1-{config.sequences.Length}).");
             return;
         }
 
-        var entry = config.sequences[sequenceNumber - 1];
+        var entry = config.sequences[seqNum - 1];
 
         if (entry.skyboxOrder == null || entry.skyboxOrder.Length < 4)
         {
-            Debug.LogError($"[SequenceManager] Sequence {sequenceNumber} has invalid skyboxOrder (need 4 indices).");
+            Debug.LogError($"[SequenceManager] Sequence {seqNum} has invalid skyboxOrder (need 4 indices).");
             return;
         }
 
-        // Determine condition order
         bool c2First = entry.firstCondition == 2;
 
         if (stateManager != null)
-        {
             stateManager.swapConditions = c2First;
-        }
 
-        // Assign skyboxes to glass rooms
         // skyboxOrder: [firstRoom1, firstRoom2, secondRoom1, secondRoom2]
-        // "first" and "second" refer to the order the participant experiences them
-        RoomManager[] firstRooms = c2First ? condition2Rooms : condition1Rooms;
+        RoomManager[] firstRooms  = c2First ? condition2Rooms : condition1Rooms;
         RoomManager[] secondRooms = c2First ? condition1Rooms : condition2Rooms;
 
-        AssignSkybox(firstRooms, 0, entry.skyboxOrder[0]);
-        AssignSkybox(firstRooms, 1, entry.skyboxOrder[1]);
+        AssignSkybox(firstRooms,  0, entry.skyboxOrder[0]);
+        AssignSkybox(firstRooms,  1, entry.skyboxOrder[1]);
         AssignSkybox(secondRooms, 0, entry.skyboxOrder[2]);
         AssignSkybox(secondRooms, 1, entry.skyboxOrder[3]);
 
-        Debug.Log($"[SequenceManager] Participant={participantId}, Sequence={sequenceNumber}, " +
-            $"Order={( c2First ? "C2→C1" : "C1→C2")}, " +
-            $"Skyboxes=s{entry.skyboxOrder[0]+1},s{entry.skyboxOrder[1]+1}→s{entry.skyboxOrder[2]+1},s{entry.skyboxOrder[3]+1}");
+        Debug.Log($"[SequenceManager] Participant={pid}, Sequence={seqNum}, " +
+            $"Order={(c2First ? "C2\u2192C1" : "C1\u2192C2")}, " +
+            $"Skyboxes=s{entry.skyboxOrder[0]+1},s{entry.skyboxOrder[1]+1}\u2192s{entry.skyboxOrder[2]+1},s{entry.skyboxOrder[3]+1}");
     }
 
     private void AssignSkybox(RoomManager[] rooms, int roomIndex, int skyboxIndex)
