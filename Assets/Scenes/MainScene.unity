@@ -1485,7 +1485,7 @@ MonoBehaviour:
   - 45
   - 120
   - 135
-  - 10
+  - 150
   defaultOpenDelay: 10
   glassRoom: {fileID: 2047274123}
   addGlassRoomLockIndices: 0100000003000000
@@ -9893,6 +9893,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 58445280694286476, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 153982007679157697, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470279098769358944, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -9941,6 +9953,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1748222016861356527, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2190828208922718286, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626757739553014894, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904471525139099824, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5944131804917401860, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -9980,6 +10008,10 @@ PrefabInstance:
     - target: {fileID: 6528530117482412838, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7347985736721345035, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8366379412631108205, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14315,7 +14347,7 @@ MonoBehaviour:
   - 45
   - 120
   - 135
-  - 10
+  - 150
   defaultOpenDelay: 10
   glassRoom: {fileID: 6223518283195735862}
   addGlassRoomLockIndices: 04000000
@@ -14602,7 +14634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 10
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 1290526096725498311}
   xrRigRoot: {fileID: 166720546}
@@ -25699,7 +25731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 10
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 1852671403}
   xrRigRoot: {fileID: 166720546}
@@ -32215,7 +32247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 10
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 521791198}
   xrRigRoot: {fileID: 166720546}
@@ -32235,7 +32267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 10
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 998821867}
   xrRigRoot: {fileID: 166720546}
