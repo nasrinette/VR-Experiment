@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 10999063}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.13662982, y: -2.1133301, z: 1.3622103}
+  m_LocalPosition: {x: -0.13662982, y: -2.1133301, z: 1.23421}
   m_LocalScale: {x: 1, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6462,7 +6462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &778041279
 Transform:
   m_ObjectHideFlags: 0
@@ -6900,7 +6900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7570002
+      value: 2.7640002
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6908,7 +6908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.4160004
+      value: -4.406
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7845,7 +7845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6092513927046721926, guid: 2136e75198f2345b8b81905d0f22a34a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.7884555
+      value: -5.8174553
       objectReference: {fileID: 0}
     - target: {fileID: 6092513927046721926, guid: 2136e75198f2345b8b81905d0f22a34a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8104,7 +8104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SequenceManager
   participantId: p1
-  sequenceNumber: 1
+  sequenceNumber: 3
   skyboxes:
   - {fileID: 2100000, guid: 77ef5978d05f04fd58dfd1dba98af100, type: 2}
   - {fileID: 2100000, guid: c179708471f1a4380a39155bec22b5da, type: 2}
@@ -10206,7 +10206,7 @@ Transform:
   m_GameObject: {fileID: 1367315669}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.1553903, y: -0.81348, z: 6.5837097}
+  m_LocalPosition: {x: -4.12139, y: -0.81348, z: 6.63371}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10246,7 +10246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 150
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 1290526096725498311}
   xrRigRoot: {fileID: 166720546}
@@ -15931,7 +15931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1919647119
 Transform:
   m_ObjectHideFlags: 0
@@ -17246,7 +17246,7 @@ Transform:
   m_GameObject: {fileID: 2047274120}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.6743898, y: -0.81348, z: 6.599}
+  m_LocalPosition: {x: -2.6743898, y: -0.81348, z: 6.677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17286,7 +17286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 150
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 1852671403}
   xrRigRoot: {fileID: 166720546}
@@ -19000,7 +19000,7 @@ Transform:
   m_GameObject: {fileID: 8362304367044441802}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.14439, y: -0.81348, z: 6.59671}
+  m_LocalPosition: {x: -5.15039, y: -0.81348, z: 6.62671}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19015,7 +19015,7 @@ Transform:
   m_GameObject: {fileID: 8362304367003501936}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.71139, y: -0.81348, z: 6.60371}
+  m_LocalPosition: {x: -2.71139, y: -0.81348, z: 6.63171}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23370,7 +23370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 150
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 521791198}
   xrRigRoot: {fileID: 166720546}
@@ -23390,7 +23390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 150
+  lockSeconds: 90
   isGlassRoom: 1
   glassRoomObject: {fileID: 998821867}
   xrRigRoot: {fileID: 166720546}

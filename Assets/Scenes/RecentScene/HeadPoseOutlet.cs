@@ -34,11 +34,11 @@ public class HeadPoseOutlet : AFloatOutlet
 
     protected override void Start()
     {
-        Debug.Log($"LOG [HeadPoseOutlet] Initializing... StreamName={StreamName}, StreamType={StreamType}, Moment={moment}");
+        Debug.Log($"LSL [HeadPoseOutlet] Initializing... StreamName={StreamName}, StreamType={StreamType}, Moment={moment}");
 
         if (string.IsNullOrEmpty(StreamName) || string.IsNullOrEmpty(StreamType))
         {
-            Debug.LogError("LOG [HeadPoseOutlet] StreamName or StreamType is empty! Set them in the Inspector.");
+            Debug.LogError("LSL [HeadPoseOutlet] StreamName or StreamType is empty! Set them in the Inspector.");
             return;
         }
 
@@ -48,17 +48,17 @@ public class HeadPoseOutlet : AFloatOutlet
         try
         {
             int lslVersion = LSL.LSL.library_version();
-            Debug.Log($"LOG [HeadPoseOutlet] liblsl loaded — version {lslVersion / 100}.{lslVersion % 100}");
+            Debug.Log($"LSL [HeadPoseOutlet] liblsl loaded — version {lslVersion / 100}.{lslVersion % 100}");
         }
         catch (DllNotFoundException e)
         {
-            Debug.LogError($"LOG [HeadPoseOutlet] FATAL — liblsl native library not found! " +
+            Debug.LogError($"LSL [HeadPoseOutlet] FATAL — liblsl native library not found! " +
                 $"Ensure liblsl.so is in Assets/Plugins/Android/arm64-v8a/ for Quest builds. Exception: {e.Message}");
             return;
         }
         catch (Exception e)
         {
-            Debug.LogError($"LOG [HeadPoseOutlet] FATAL — failed to load liblsl: {e.GetType().Name}: {e.Message}");
+            Debug.LogError($"LSL [HeadPoseOutlet] FATAL — failed to load liblsl: {e.GetType().Name}: {e.Message}");
             return;
         }
 
@@ -78,21 +78,21 @@ public class HeadPoseOutlet : AFloatOutlet
                 }
                 catch (System.Exception metaEx)
                 {
-                    Debug.LogWarning($"LOG [HeadPoseOutlet] Could not add participant metadata: {metaEx.Message}");
+                    Debug.LogWarning($"LSL [HeadPoseOutlet] Could not add participant metadata: {metaEx.Message}");
                 }
 
-                Debug.Log($"LOG [HeadPoseOutlet] Outlet created successfully — " +
+                Debug.Log($"LSL [HeadPoseOutlet] Outlet created successfully — " +
                     $"{ChannelCount} channels, rate={Time.fixedDeltaTime:F4}s ({1.0 / Time.fixedDeltaTime:F1} Hz)");
-                Debug.Log($"LOG [HeadPoseOutlet] Waiting for consumers (LabRecorder) on the local network...");
+                Debug.Log($"LSL [HeadPoseOutlet] Waiting for consumers (LabRecorder) on the local network...");
             }
             else
             {
-                Debug.LogError("LOG [HeadPoseOutlet] Outlet is null after Start() — stream creation failed!");
+                Debug.LogError("LSL [HeadPoseOutlet] Outlet is null after Start() — stream creation failed!");
             }
         }
         catch (Exception e)
         {
-            Debug.LogError($"LOG [HeadPoseOutlet] Failed to create LSL outlet: {e.GetType().Name}: {e.Message}\n{e.StackTrace}");
+            Debug.LogError($"LSL [HeadPoseOutlet] Failed to create LSL outlet: {e.GetType().Name}: {e.Message}\n{e.StackTrace}");
             _outletReady = false;
         }
     }
@@ -135,9 +135,9 @@ public class HeadPoseOutlet : AFloatOutlet
             try { consumers = outlet.have_consumers() ? 1 : 0; } catch { }
 
             if (consumers > 0)
-                Debug.Log($"LOG [HeadPoseOutlet] Streaming OK — {_pushCount} samples sent, consumer connected");
+                Debug.Log($"LSL [HeadPoseOutlet] Streaming OK — {_pushCount} samples sent, consumer connected");
             else
-                Debug.LogWarning($"LOG [HeadPoseOutlet] Streaming but NO consumer — {_pushCount} samples sent. " +
+                Debug.LogWarning($"LSL [HeadPoseOutlet] Streaming but NO consumer — {_pushCount} samples sent. " +
                     "Is LabRecorder running on the same network?");
 
             _logTimer = 0f;
@@ -152,14 +152,14 @@ public class HeadPoseOutlet : AFloatOutlet
         switch (reachability)
         {
             case NetworkReachability.NotReachable:
-                Debug.LogError("LOG [HeadPoseOutlet] NETWORK: Not reachable! WiFi is OFF or disconnected. " +
+                Debug.LogError("LSL [HeadPoseOutlet] NETWORK: Not reachable! WiFi is OFF or disconnected. " +
                     "LSL requires the Quest and laptop to be on the same WiFi network.");
                 break;
             case NetworkReachability.ReachableViaLocalAreaNetwork:
-                Debug.Log("LOG [HeadPoseOutlet] NETWORK: Connected via WiFi/LAN — good");
+                Debug.Log("LSL [HeadPoseOutlet] NETWORK: Connected via WiFi/LAN — good");
                 break;
             case NetworkReachability.ReachableViaCarrierDataNetwork:
-                Debug.LogWarning("LOG [HeadPoseOutlet] NETWORK: Connected via mobile data — " +
+                Debug.LogWarning("LSL [HeadPoseOutlet] NETWORK: Connected via mobile data — " +
                     "LSL needs WiFi/LAN, not cellular. Ensure Quest and laptop are on the same WiFi.");
                 break;
         }
@@ -167,6 +167,6 @@ public class HeadPoseOutlet : AFloatOutlet
 
     void OnDestroy()
     {
-        Debug.Log($"LOG [HeadPoseOutlet] Destroyed — total samples sent: {_pushCount}");
+        Debug.Log($"LSL [HeadPoseOutlet] Destroyed — total samples sent: {_pushCount}");
     }
 }
