@@ -96,7 +96,7 @@ public class BoxChoiceManager : MonoBehaviour
         if (_rated) return;
         _rated = true;
 
-        QuestEventOutlet.Send($"box_rating_{rating}");
+        // QuestEventOutlet.Send($"box_rating_{rating}");
 
         if (ratingPanel) ratingPanel.SetActive(false);
         if (afterRatingPanel) afterRatingPanel.SetActive(true);

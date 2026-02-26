@@ -110,7 +110,7 @@ public class RevealManager : MonoBehaviour
                 if (handle != null)
                     handle.SetArmed(true);
 
-        QuestEventOutlet.Send("rating_done");
+        // QuestEventOutlet.Send("rating_done");
         Debug.Log("[RevealManager] Rating submitted – door handle now armed.");
     }
 
