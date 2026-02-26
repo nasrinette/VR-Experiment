@@ -1485,7 +1485,7 @@ MonoBehaviour:
   - 45
   - 120
   - 135
-  - 150
+  - 10
   defaultOpenDelay: 10
   glassRoom: {fileID: 2047274123}
   addGlassRoomLockIndices: 0100000003000000
@@ -3127,6 +3127,7 @@ GameObject:
   - component: {fileID: 302327382}
   - component: {fileID: 302327381}
   - component: {fileID: 302327380}
+  - component: {fileID: 302327384}
   m_Layer: 0
   m_Name: wall (4)
   m_TagString: Untagged
@@ -3226,6 +3227,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302327378}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &302327384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302327378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc49f590f08483d9451a4570869ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallVibration
+  proximityDistance: 0.15
+  maxAmplitude: 0.7
+  pulseDuration: 0.05
+  pulseInterval: 0.08
+  enableShake: 0
+  shakeAmount: 0.005
+  shakeFrequency: 25
 --- !u!1 &317674558
 GameObject:
   m_ObjectHideFlags: 0
@@ -9925,6 +9945,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6480925242510836759, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6501755809687671949, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -10108,6 +10132,7 @@ GameObject:
   - component: {fileID: 877154274}
   - component: {fileID: 877154273}
   - component: {fileID: 877154272}
+  - component: {fileID: 877154276}
   m_Layer: 0
   m_Name: wall (15)
   m_TagString: Untagged
@@ -10207,6 +10232,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877154270}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &877154276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877154270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc49f590f08483d9451a4570869ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallVibration
+  proximityDistance: 0.15
+  maxAmplitude: 0.7
+  pulseDuration: 0.05
+  pulseInterval: 0.08
+  enableShake: 0
+  shakeAmount: 0.005
+  shakeFrequency: 25
 --- !u!1 &881558913
 GameObject:
   m_ObjectHideFlags: 0
@@ -14271,7 +14315,7 @@ MonoBehaviour:
   - 45
   - 120
   - 135
-  - 150
+  - 10
   defaultOpenDelay: 10
   glassRoom: {fileID: 6223518283195735862}
   addGlassRoomLockIndices: 04000000
@@ -14558,7 +14602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 90
+  lockSeconds: 10
   isGlassRoom: 1
   glassRoomObject: {fileID: 1290526096725498311}
   xrRigRoot: {fileID: 166720546}
@@ -25655,7 +25699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 90
+  lockSeconds: 10
   isGlassRoom: 1
   glassRoomObject: {fileID: 1852671403}
   xrRigRoot: {fileID: 166720546}
@@ -32171,7 +32215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 90
+  lockSeconds: 10
   isGlassRoom: 1
   glassRoomObject: {fileID: 521791198}
   xrRigRoot: {fileID: 166720546}
@@ -32191,7 +32235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   playerBodyCollider: {fileID: 166720547}
-  lockSeconds: 90
+  lockSeconds: 10
   isGlassRoom: 1
   glassRoomObject: {fileID: 998821867}
   xrRigRoot: {fileID: 166720546}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 154283414119178900}
   - component: {fileID: 5331352952458919601}
   - component: {fileID: 6157093856941864517}
+  - component: {fileID: 6480334231402702145}
   m_Layer: 0
   m_Name: fence (11)
   m_TagString: Untagged
@@ -111,6 +112,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6480334231402702145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082117204527568938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc49f590f08483d9451a4570869ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallVibration
+  proximityDistance: 0.15
+  maxAmplitude: 0.7
+  pulseDuration: 0.05
+  pulseInterval: 0.08
+  enableShake: 0
+  shakeAmount: 0.005
+  shakeFrequency: 25
 --- !u!1 &2930408152490248818
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +143,7 @@ GameObject:
   - component: {fileID: 3793311333505058035}
   - component: {fileID: 2511209476612447800}
   - component: {fileID: 6504450211110554470}
+  - component: {fileID: 4006060334836376912}
   m_Layer: 0
   m_Name: fence (9)
   m_TagString: Untagged
@@ -222,6 +243,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4006060334836376912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930408152490248818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc49f590f08483d9451a4570869ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallVibration
+  proximityDistance: 0.15
+  maxAmplitude: 0.7
+  pulseDuration: 0.05
+  pulseInterval: 0.08
+  enableShake: 0
+  shakeAmount: 0.005
+  shakeFrequency: 25
 --- !u!1 &3071363092657128064
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +385,7 @@ GameObject:
   - component: {fileID: 2384406762224950293}
   - component: {fileID: 6770029295909846007}
   - component: {fileID: 2077781781696143806}
+  - component: {fileID: 6829705710553502809}
   m_Layer: 0
   m_Name: fence (6)
   m_TagString: Untagged
@@ -444,6 +485,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6829705710553502809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3629130298935810062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc49f590f08483d9451a4570869ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallVibration
+  proximityDistance: 0.15
+  maxAmplitude: 0.7
+  pulseDuration: 0.05
+  pulseInterval: 0.08
+  enableShake: 0
+  shakeAmount: 0.005
+  shakeFrequency: 25
 --- !u!1 &5041246018719028154
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,6 +627,7 @@ GameObject:
   - component: {fileID: 6871446141480215322}
   - component: {fileID: 3787362705340560635}
   - component: {fileID: 5925897443105885693}
+  - component: {fileID: 4858123742160088057}
   m_Layer: 0
   m_Name: fence (8)
   m_TagString: Untagged
@@ -666,6 +727,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4858123742160088057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393148747330580490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc49f590f08483d9451a4570869ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallVibration
+  proximityDistance: 0.15
+  maxAmplitude: 0.7
+  pulseDuration: 0.05
+  pulseInterval: 0.08
+  enableShake: 0
+  shakeAmount: 0.005
+  shakeFrequency: 25
 --- !u!1 &7662256086724251160
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,8 +781,8 @@ Transform:
   - {fileID: 4456828088382399436}
   - {fileID: 7107885825681170052}
   - {fileID: 7688352373647109169}
-  - {fileID: 4303046199603232531}
   - {fileID: 7923857236862045046}
+  - {fileID: 4303046199603232531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9117155985056285623
