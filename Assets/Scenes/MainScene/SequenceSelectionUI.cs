@@ -80,16 +80,10 @@ public class SequenceSelectionUI : MonoBehaviour
             startButton.onClick.AddListener(OnStartClicked);
 
         if (participantIdUpBtn != null)
-        {
-            participantIdUpBtn.onClick.AddListener(ParticipantIdUp);
             EnsureAboveBlocker(participantIdUpBtn);
-        }
 
         if (participantIdDownBtn != null)
-        {
-            participantIdDownBtn.onClick.AddListener(ParticipantIdDown);
             EnsureAboveBlocker(participantIdDownBtn);
-        }
 
         // Defer first placement by one frame so the XR rig has settled its head position.
         menuRoot.SetActive(false);
@@ -144,6 +138,7 @@ public class SequenceSelectionUI : MonoBehaviour
             if (conditionTarget != 0 && stateManager != null)
             {
                 stateManager.JumpToCondition(conditionTarget);
+                QuestEventOutlet.Send($"condition_override:C{conditionTarget}");
                 Debug.Log($"[SequenceSelectionUI] Jumping to C{conditionTarget}.");
             }
             SetMenuVisible(false);
@@ -174,6 +169,9 @@ public class SequenceSelectionUI : MonoBehaviour
             var lbl = startButton.GetComponentInChildren<TextMeshProUGUI>();
             if (lbl != null) lbl.text = "Close";
         }
+
+        string conditionSuffix = conditionTarget == 0 ? "" : $":condition_override:C{conditionTarget}";
+        QuestEventOutlet.Send($"sequence_registered:participant:{pid}:sequence:{seqNum}{conditionSuffix}");
 
         SetMenuVisible(false);
         Debug.Log($"[SequenceSelectionUI] Started — PID: {pid}, Sequence: {seqNum}, ConditionOverride: {(conditionTarget == 0 ? "none" : $"C{conditionTarget}")}");
@@ -255,6 +253,7 @@ public class SequenceSelectionUI : MonoBehaviour
         });
         conditionDropdown.value = 0;
         conditionDropdown.RefreshShownValue();
+        LimitDropdownHeight(conditionDropdown, 3);
     }
 
     private void PopulateDropdown()
@@ -288,5 +287,24 @@ public class SequenceSelectionUI : MonoBehaviour
         sequenceDropdown.AddOptions(options);
         sequenceDropdown.value = 0;
         sequenceDropdown.RefreshShownValue();
+        LimitDropdownHeight(sequenceDropdown, 4);
+    }
+
+    // Clamps the dropdown template height so only maxVisible items are shown at once.
+    // The item height is read from the Toggle template inside the dropdown prefab.
+    private static void LimitDropdownHeight(TMP_Dropdown dropdown, int maxVisible)
+    {
+        if (dropdown == null || dropdown.template == null) return;
+
+        var itemRt = dropdown.template.GetComponentInChildren<Toggle>(true)
+                                      ?.GetComponent<RectTransform>();
+        if (itemRt == null) return;
+
+        // sizeDelta.y is reliable pre-layout for non-stretched items
+        float itemHeight = itemRt.sizeDelta.y;
+        if (itemHeight <= 0) return;
+
+        var templateRt = dropdown.template;
+        templateRt.sizeDelta = new Vector2(templateRt.sizeDelta.x, itemHeight * maxVisible);
     }
 }
